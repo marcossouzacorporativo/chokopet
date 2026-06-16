@@ -150,6 +150,38 @@ function renderFatura(f) {
       </div>
     </div>`:''}
 
+    ${itensSorted.some(i=>i.tipo==='medico')?`
+    <div class="card">
+      <div class="card-title">🏥 Atendimentos Médicos</div>
+      <div style="overflow-x:auto">
+        <table>
+          <tr><th>Data</th><th>Descrição</th><th>Valor</th></tr>
+          ${itensSorted.filter(i=>i.tipo==='medico').map(i=>`
+            <tr>
+              <td>${fmtDate(i.data)}</td>
+              <td>${i.descricao||'—'}</td>
+              <td><strong>${fmtMoeda(i.valor)}</strong></td>
+            </tr>`).join('')}
+        </table>
+      </div>
+    </div>`:''}
+
+    ${itensSorted.some(i=>i.tipo==='hospedagem')?`
+    <div class="card">
+      <div class="card-title">🏨 Hospedagens</div>
+      <div style="overflow-x:auto">
+        <table>
+          <tr><th>Data</th><th>Descrição</th><th>Valor</th></tr>
+          ${itensSorted.filter(i=>i.tipo==='hospedagem').map(i=>`
+            <tr>
+              <td>${fmtDate(i.data)}</td>
+              <td>${i.descricao||'—'}</td>
+              <td><strong>${fmtMoeda(i.valor)}</strong></td>
+            </tr>`).join('')}
+        </table>
+      </div>
+    </div>`:''}
+
     <div class="total-box">
       <div class="label">💰 Total a pagar</div>
       <div class="valor">${fmtMoeda(f.total)}</div>
